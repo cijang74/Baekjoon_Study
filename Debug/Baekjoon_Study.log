@@ -1,2 +1,5 @@
 ﻿  source.c
+C:\Users\cijan\source\repos\Baekjoon_Study\Baekjoon_Study\source.c(56,22): warning C4013: 'malloc'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\cijan\source\repos\Baekjoon_Study\Baekjoon_Study\source.c(16): warning C4716: 'pop_front': 값을 반환해야 합니다.
+C:\Users\cijan\source\repos\Baekjoon_Study\Baekjoon_Study\source.c(21): warning C4716: 'pop_back': 값을 반환해야 합니다.
   Baekjoon_Study.vcxproj -> C:\Users\cijan\source\repos\Baekjoon_Study\Debug\Baekjoon_Study.exe
