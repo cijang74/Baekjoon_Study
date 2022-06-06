@@ -1,53 +1,73 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 10
-
-typedef struct node
+typedef struct Node 
 {
 	int data;
-}node;
+	struct Node* left, * right;
+}Node;
 
-node n1 = { 1 };
-node n2 = { 2 };
-node n3 = { 3 };
-node n4 = { 4 };
-node n5 = { 5 };
-node n6 = { 6 };
-
-void search(node* array)
+void search(Node *node)
 {
-	int i = 1;
-	int choose = 0;
+	int input = 0;
 
-	while (i <= 6)
+	printf("현재 노드의 데이터 값: %d\n", node->data);
+	printf("왼쪽 노드: 1 / 오른쪽 노드: 2\n");
+	scanf("%d", &input);
+
+	if (input == 1 && node->left != NULL)
 	{
-		printf("현재 노드의 값은 %d\n", array[i].data);
-		printf("왼쪽 자식 노드로 이동: 1 / 오른쪽 자식 노드로 이동: 2\n");
-		scanf("%d", &choose);
-
-		if (choose == 1)
-			i *= 2;
-
-		if (choose == 2)
-			i = i * 2 + 1;
+		search(node->left);
 	}
 
-	printf("더이상 자식 노드가 존재하지 않습니다.");
+	else if (input == 2 && node->right != NULL)
+	{
+		search(node->right);
+	}
+
+	else
+	{
+		printf("더이상 노드가 존재하지 않습니다.");
+	}
+	
 }
 
 int main()
 {
-	node array[SIZE];
+	Node* n1, * n2, * n3, * n4, * n5, * n6;
 
-	array[1] = n1;
-	array[2] = n2;
-	array[3] = n3;
-	array[4] = n4;
-	array[5] = n5;
-	array[6] = n6;
+	n1 = (Node*)malloc(sizeof(Node));
+	n2 = (Node*)malloc(sizeof(Node));
+	n3 = (Node*)malloc(sizeof(Node));
+	n4 = (Node*)malloc(sizeof(Node));
+	n5 = (Node*)malloc(sizeof(Node));
+	n6 = (Node*)malloc(sizeof(Node));
 
-	search(array);
+	n1->data = 1;
+	n1->left = n2;
+	n1->right = n3;
+
+	n2->data = 2;
+	n2->left = n4;
+	n2->right = n5;
+
+	n3->data = 3;
+	n3->left = n6;
+	n3->right = NULL;
+
+	n4->data = 4;
+	n4->left = NULL;
+	n4->right = NULL;
+
+	n5->data = 5;
+	n5->left = NULL;
+	n5->right = NULL;
+
+	n6->data = 6;
+	n6->left = NULL;
+	n6->right = NULL;
+
+	search(n1);
 
 	return 0;
 }
