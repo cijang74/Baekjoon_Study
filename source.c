@@ -7,55 +7,40 @@ typedef struct Node
 	struct Node* left, * right;
 }Node;
 
-void preorder_search(Node *node) // 전위순회 (부모 먼저) 탐색 알고리즘
+int exculate(Node* node)
 {
-	printf("[%d] ", node->data);
-
-	if (node->left != NULL)
+	if (node->data == NULL)
 	{
-		preorder_search(node->left);
+		return 0;
 	}
 
-	if (node->right != NULL)
+	if (node->left == NULL && node->right == NULL) // 비단말 노드라면 피연산자이므로 노트의 데이터를 반환
 	{
-		preorder_search(node->right);
-	}
-}
-
-void inorder_search(Node* node) // 중위순회 탐색 알고리즘 (왼쪽 자식 노드 먼저) 탐색 알고리즘
-{
-	if (node->left != NULL)
-	{
-		inorder_search(node->left);
+		return node->data;
 	}
 
-	printf("[%d] ", node->data);
-
-	if (node->right != NULL)
+	else
 	{
-		inorder_search(node->right);
-	}
-}
+		int op1 = exculate(node->left);
+		int op2 = exculate(node->right);
 
-void postorder_search(Node* node)
-{
-	if (node->left != NULL)
-	{
-		postorder_search(node->left);
-	}
+		switch (node->data)
+		{
+		case '+':
+			printf("%d + %d = %d\n", op1, op2, op1 + op2);
+			return op1 + op2;
 
-	if (node->right != NULL)
-	{
-		postorder_search(node->right);
+		case '*':
+			printf("%d * %d = %d\n", op1, op2, op1 * op2);
+			return op1 * op2;
+		}
 	}
 
-	printf("[%d] ", node->data);
 }
 
 int main()
 {
 	Node* n1, * n2, * n3, * n4, * n5, * n6, *n7;
-
 	n1 = (Node*)malloc(sizeof(Node));
 	n2 = (Node*)malloc(sizeof(Node));
 	n3 = (Node*)malloc(sizeof(Node));
@@ -64,44 +49,36 @@ int main()
 	n6 = (Node*)malloc(sizeof(Node));
 	n7 = (Node*)malloc(sizeof(Node));
 
-	n1->data = 1;
+	n1->data = '+';
 	n1->left = n2;
 	n1->right = n3;
 
-	n2->data = 2;
+	n2->data = '*';
 	n2->left = n4;
 	n2->right = n5;
 
-	n3->data = 3;
+	n3->data = '+';
 	n3->left = n6;
 	n3->right = n7;
 
-	n4->data = 4;
+	n4->data = 3;
 	n4->left = NULL;
 	n4->right = NULL;
 
-	n5->data = 5;
+	n5->data = 2;
 	n5->left = NULL;
 	n5->right = NULL;
 
-	n6->data = 6;
+	n6->data = 5;
 	n6->left = NULL;
 	n6->right = NULL;
 
-	n7->data = 7;
+	n7->data = 6;
 	n7->left = NULL;
 	n7->right = NULL;
 
-	printf("// 전위순회 // \n");
-	preorder_search(n1);
-
-	printf("\n\n // 중위순회 // \n");
-	inorder_search(n1);
-
-	printf("\n\n // 후위순회 // \n");
-	postorder_search(n1);
+	printf("계산 결과는 %d", exculate(n1));
 
 	free(n1, n2, n3, n4, n5, n6, n7);
-
 	return 0;
 }
