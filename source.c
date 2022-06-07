@@ -1,40 +1,60 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node 
+typedef struct Node
 {
 	int data;
 	struct Node* left, * right;
 }Node;
 
-void search(Node *node)
+void preorder_search(Node *node) // 전위순회 (부모 먼저) 탐색 알고리즘
 {
-	int input = 0;
+	printf("[%d] ", node->data);
 
-	printf("현재 노드의 데이터 값: %d\n", node->data);
-	printf("왼쪽 노드: 1 / 오른쪽 노드: 2\n");
-	scanf("%d", &input);
-
-	if (input == 1 && node->left != NULL)
+	if (node->left != NULL)
 	{
-		search(node->left);
+		preorder_search(node->left);
 	}
 
-	else if (input == 2 && node->right != NULL)
+	if (node->right != NULL)
 	{
-		search(node->right);
+		preorder_search(node->right);
+	}
+}
+
+void inorder_search(Node* node) // 중위순회 탐색 알고리즘 (왼쪽 자식 노드 먼저) 탐색 알고리즘
+{
+	if (node->left != NULL)
+	{
+		preorder_search(node->left);
 	}
 
-	else
+	printf("[%d] ", node->data);
+
+	if (node->right != NULL)
 	{
-		printf("더이상 노드가 존재하지 않습니다.");
+		preorder_search(node->right);
 	}
-	
+}
+
+void postorder_search(Node* node)
+{
+	if (node->left != NULL)
+	{
+		preorder_search(node->left);
+	}
+
+	if (node->right != NULL)
+	{
+		preorder_search(node->right);
+	}
+
+	printf("[%d] ", node->data);
 }
 
 int main()
 {
-	Node* n1, * n2, * n3, * n4, * n5, * n6;
+	Node* n1, * n2, * n3, * n4, * n5, * n6, *n7;
 
 	n1 = (Node*)malloc(sizeof(Node));
 	n2 = (Node*)malloc(sizeof(Node));
@@ -42,6 +62,7 @@ int main()
 	n4 = (Node*)malloc(sizeof(Node));
 	n5 = (Node*)malloc(sizeof(Node));
 	n6 = (Node*)malloc(sizeof(Node));
+	n7 = (Node*)malloc(sizeof(Node));
 
 	n1->data = 1;
 	n1->left = n2;
@@ -53,7 +74,7 @@ int main()
 
 	n3->data = 3;
 	n3->left = n6;
-	n3->right = NULL;
+	n3->right = n7;
 
 	n4->data = 4;
 	n4->left = NULL;
@@ -67,7 +88,20 @@ int main()
 	n6->left = NULL;
 	n6->right = NULL;
 
-	search(n1);
+	n7->data = 7;
+	n7->left = NULL;
+	n7->right = NULL;
+
+	printf("// 전위순회 // \n");
+	preorder_search(n1);
+
+	printf("\n\n // 중위순회 // \n");
+	inorder_search(n1);
+
+	printf("\n\n // 후위순회 // \n");
+	postorder_search(n1);
+
+	free(n1, n2, n3, n4, n5, n6, n7);
 
 	return 0;
 }
