@@ -26,14 +26,14 @@ void inorder_search(Node* node) // 중위순회 탐색 알고리즘 (왼쪽 자�
 {
 	if (node->left != NULL)
 	{
-		preorder_search(node->left);
+		inorder_search(node->left);
 	}
 
 	printf("[%d] ", node->data);
 
 	if (node->right != NULL)
 	{
-		preorder_search(node->right);
+		inorder_search(node->right);
 	}
 }
 
@@ -41,12 +41,12 @@ void postorder_search(Node* node)
 {
 	if (node->left != NULL)
 	{
-		preorder_search(node->left);
+		postorder_search(node->left);
 	}
 
 	if (node->right != NULL)
 	{
-		preorder_search(node->right);
+		postorder_search(node->right);
 	}
 
 	printf("[%d] ", node->data);
